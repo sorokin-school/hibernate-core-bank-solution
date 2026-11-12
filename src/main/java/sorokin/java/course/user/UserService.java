@@ -46,7 +46,7 @@ public class UserService {
         validatePositiveId(id, "user id");
         return executeInTransactionOrJoin(() -> {
             Session session = sessionFactory.getCurrentSession();
-            User user = session.get(User.class, id);
+            User user = session.find(User.class, id);
             if (user == null) {
                 throw new IllegalArgumentException("No such user with id=%s".formatted(id));
             }

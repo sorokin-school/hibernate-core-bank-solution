@@ -27,7 +27,12 @@ public class OperationsConsoleListener {
 
     public void runBank() {
         init();
-        process();
+        try {
+            process();
+        } catch (EndOfInputException e) {
+            running = false;
+            System.out.println("MiniBank stopped.");
+        }
     }
 
     private void process() {
@@ -47,6 +52,8 @@ public class OperationsConsoleListener {
                 throw new IllegalStateException("No command handler for " + operationType);
             }
             command.execute();
+        } catch (EndOfInputException e) {
+            throw e;
         } catch (IllegalArgumentException | IllegalStateException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {

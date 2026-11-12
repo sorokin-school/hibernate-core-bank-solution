@@ -7,6 +7,7 @@ import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.springframework.stereotype.Component;
 import sorokin.java.course.user.User;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -25,7 +26,7 @@ public class AccountService {
         validatePositiveId(userId, "user id");
         return executeInTransactionOrJoin(() -> {
             Session session = sessionFactory.getCurrentSession();
-            User user = session.get(User.class, userId);
+            User user = session.find(User.class, userId);
             if (user == null) {
                 throw new IllegalArgumentException("No such user with id=%s".formatted(userId));
             }
@@ -83,7 +84,7 @@ public class AccountService {
 
             Account accountToTransferMoney = userAccounts.stream()
                     .filter(it -> !it.getId().equals(accountId))
-                    .findFirst()
+                    .min(Comparator.comparing(Account::getId))
                     .orElseThrow(() -> new IllegalStateException("No account available to transfer remaining balance"));
 
             int transferredAmount = accountToClose.getMoneyAmount();
@@ -138,7 +139,7 @@ public class AccountService {
     }
 
     private Account findAccountOrThrow(Session session, Long accountId) {
-        Account account = session.get(Account.class, accountId);
+        Account account = session.find(Account.class, accountId);
         if (account == null) {
             throw new IllegalArgumentException("No such account: id=%s".formatted(accountId));
         }

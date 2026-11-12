@@ -1,4 +1,8 @@
 target/
+/verification/
+/docs/
+/*.pdf
+/lab_1.smv.txt
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

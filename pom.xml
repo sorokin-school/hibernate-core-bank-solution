@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>sorokin.java.course</groupId>
-    <artifactId>spring-bank</artifactId>
+    <artifactId>hibernate-core-bank-solution</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>6.4.4.Final</version>
+            <version>7.4.15.Final</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

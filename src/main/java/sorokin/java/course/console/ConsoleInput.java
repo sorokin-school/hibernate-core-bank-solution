@@ -20,7 +20,7 @@ public class ConsoleInput {
     public ConsoleOperationType readOperationType() {
         while (true) {
             System.out.println("Enter command:");
-            String value = scanner.nextLine().trim();
+            String value = readLine();
             if (value.isBlank()) {
                 System.out.println("Error: command must not be blank");
                 printAvailableCommands();
@@ -38,7 +38,7 @@ public class ConsoleInput {
     public String readRequiredString(String prompt, String fieldName) {
         while (true) {
             System.out.println(prompt);
-            String value = scanner.nextLine().trim();
+            String value = readLine();
             if (!value.isBlank()) {
                 return value;
             }
@@ -49,7 +49,7 @@ public class ConsoleInput {
     public int readPositiveInt(String prompt, String fieldName) {
         while (true) {
             System.out.println(prompt);
-            String value = scanner.nextLine().trim();
+            String value = readLine();
             if (value.isBlank()) {
                 System.out.println("Error: " + fieldName + " must not be blank");
                 continue;
@@ -70,7 +70,7 @@ public class ConsoleInput {
     public long readPositiveLong(String prompt, String fieldName) {
         while (true) {
             System.out.println(prompt);
-            String value = scanner.nextLine().trim();
+            String value = readLine();
             if (value.isBlank()) {
                 System.out.println("Error: " + fieldName + " must not be blank");
                 continue;
@@ -86,6 +86,13 @@ public class ConsoleInput {
                 System.out.println("Error: " + fieldName + " must be a number");
             }
         }
+    }
+
+    private String readLine() {
+        if (!scanner.hasNextLine()) {
+            throw new EndOfInputException();
+        }
+        return scanner.nextLine().trim();
     }
 
     public void printAvailableCommands() {
